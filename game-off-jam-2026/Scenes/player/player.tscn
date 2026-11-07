@@ -1,0 +1,47 @@
+[gd_scene format=3 uid="uid://dfexr2wptjumw"]
+
+[ext_resource type="Script" uid="uid://bkuvn3bmrx1cp" path="res://Scripts/Player.gd" id="1_8p05u"]
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_xc2g5"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_8p05u"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_wydro"]
+height = 1.1162109
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_eo61r"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_hp6sh"]
+size = Vector3(1, 1, 2.4750977)
+
+[node name="Player" type="CharacterBody3D" unique_id=1940992730]
+script = ExtResource("1_8p05u")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=2130795864]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+mesh = SubResource("CapsuleMesh_xc2g5")
+
+[node name="StandingCollisionShape" type="CollisionShape3D" parent="." unique_id=2105627094]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+shape = SubResource("CapsuleShape3D_8p05u")
+
+[node name="CrouchingCollisionShape" type="CollisionShape3D" parent="." unique_id=1594919584]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.55810547, 0)
+shape = SubResource("CapsuleShape3D_wydro")
+disabled = true
+
+[node name="StandupCheck" type="ShapeCast3D" parent="." unique_id=1844919833]
+shape = SubResource("CapsuleShape3D_eo61r")
+
+[node name="Head" type="Node3D" parent="." unique_id=827033317]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.67939, 0)
+
+[node name="Headbob" type="Node3D" parent="Head" unique_id=1222206075]
+
+[node name="Camera3D" type="Camera3D" parent="Head/Headbob" unique_id=39825508]
+
+[node name="InteractionArea" type="Area3D" parent="." unique_id=1301068257]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="InteractionArea" unique_id=2140061812]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.6209606, -1.3968813)
+shape = SubResource("BoxShape3D_hp6sh")
