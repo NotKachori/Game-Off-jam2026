@@ -9,6 +9,24 @@ const CROUCH_SPEED = 2.5
 
 var speed = WALK_SPEED
 
+# PLAYER SIZE
+const NORMAL_SIZE = 1.0
+const LIGHTWEIGHT_SIZE = 0.6
+const HEAVY_SIZE = 1.5
+
+var current_size_scale = NORMAL_SIZE
+
+var standing_capsule: CapsuleShape3D
+var crouching_capsule: CapsuleShape3D
+
+var standing_original_height: float
+var standing_original_radius: float
+var crouching_original_height: float
+var crouching_original_radius: float
+
+var standing_original_position: Vector3
+var crouching_original_position: Vector3
+
 # NORMAL PHYSICS
 const NORMAL_GRAVITY = 9.8
 const NORMAL_JUMP = 4.8
@@ -70,6 +88,25 @@ var lean_amount = 0.0
 
 func _ready():
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
+		# Duplicate shapes so we don't modify shared resources
+	standing_capsule = standing_collision.shape.duplicate()
+	crouching_capsule = crouching_collision.shape.duplicate()
+
+	standing_collision.shape = standing_capsule
+	crouching_collision.shape = crouching_capsule
+
+	# Save original dimensions
+	standing_original_height = standing_capsule.height
+	standing_original_radius = standing_capsule.radius
+
+	crouching_original_height = crouching_capsule.height
+	crouching_original_radius = crouching_capsule.radius
+
+	standing_original_position = standing_collision.position
+	crouching_original_position = crouching_collision.position
+
+	# Listen for property changes
+	property_manager.property_changed.connect(_on_property_changed)
 
 
 func _unhandled_input(event):
@@ -244,7 +281,7 @@ func handle_crouching(delta):
 	standing_collision.disabled = is_crouching
 	crouching_collision.disabled = not is_crouching
 
-	var target_height = CROUCH_HEIGHT if is_crouching else STAND_HEIGHT
+	var target_height = (CROUCH_HEIGHT if is_crouching else STAND_HEIGHT) * current_size_scale
 
 	head.position.y = lerp(
 		head.position.y,
@@ -271,3 +308,29 @@ func handle_leaning(delta):
 	)
 
 	camera.rotation.z = lean_amount
+	
+func _on_property_changed(new_property):
+	var new_size = NORMAL_SIZE
+
+	match new_property:
+		PropertyManagerScript.Property.LIGHTWEIGHT:
+			new_size = LIGHTWEIGHT_SIZE
+
+		PropertyManagerScript.Property.HEAVY:
+			new_size = HEAVY_SIZE
+
+	current_size_scale = new_size
+
+	# Resize standing capsule
+	standing_capsule.height = standing_original_height * new_size
+	standing_capsule.radius = standing_original_radius * new_size
+
+	# Resize crouching capsule
+	crouching_capsule.height = crouching_original_height * new_size
+	crouching_capsule.radius = crouching_original_radius * new_size
+
+	# Keep the bottom of the capsules at floor level
+	standing_collision.position = standing_original_position * new_size
+	crouching_collision.position = crouching_original_position * new_size
+
+	print("Player size: ", new_size)

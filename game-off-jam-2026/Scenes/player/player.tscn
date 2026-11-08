@@ -3,8 +3,6 @@
 [ext_resource type="Script" uid="uid://cgkejjp45aatc" path="res://Scenes/player/Player.gd" id="1_8p05u"]
 [ext_resource type="Script" uid="uid://cichbvvk5xcd6" path="res://Scripts/property/property_manager.gd" id="2_eo61r"]
 
-[sub_resource type="CapsuleMesh" id="CapsuleMesh_xc2g5"]
-
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_8p05u"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_wydro"]
@@ -17,10 +15,6 @@ size = Vector3(1, 1, 2.4750977)
 
 [node name="Player" type="CharacterBody3D" unique_id=1940992730]
 script = ExtResource("1_8p05u")
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=2130795864]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
-mesh = SubResource("CapsuleMesh_xc2g5")
 
 [node name="StandingCollisionShape" type="CollisionShape3D" parent="." unique_id=2105627094]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)

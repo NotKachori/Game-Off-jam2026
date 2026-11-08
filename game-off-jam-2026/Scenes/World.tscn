@@ -59,11 +59,29 @@ material_override = ExtResource("5_te4rd")
 use_collision = true
 size = Vector3(4, 5.83948, 4)
 
+[node name="CSGBox3D10" type="CSGBox3D" parent="Map" unique_id=955597988]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 9.021976, 2.6044621, -5.61763)
+material_override = ExtResource("5_te4rd")
+use_collision = true
+size = Vector3(4, 0.6305554, 4)
+
+[node name="CSGBox3D11" type="CSGBox3D" parent="Map" unique_id=1329545950]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 15.703176, 1.4382606, -5.61763)
+material_override = ExtResource("5_te4rd")
+use_collision = true
+size = Vector3(4, 0.6305554, 4)
+
 [node name="CSGBox3D8" type="CSGBox3D" parent="Map" unique_id=1746675540]
 transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 12, 0, -12.6176)
 material_override = ExtResource("4_nuwel")
 use_collision = true
 size = Vector3(4, 8, 4)
+
+[node name="CSGBox3D9" type="CSGBox3D" parent="Map" unique_id=2111486799]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 9.280464, 3.6992798, -12.6176)
+material_override = ExtResource("4_nuwel")
+use_collision = true
+size = Vector3(4, 0.6014404, 4)
 
 [node name="CSGBox3D" type="CSGBox3D" parent="Map" unique_id=245980751]
 material_override = ExtResource("1_o5nrg")
