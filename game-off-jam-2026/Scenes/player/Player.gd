@@ -121,7 +121,6 @@ func _unhandled_input(event):
 			deg_to_rad(60)
 		)
 
-
 func _physics_process(delta):
 
 	handle_property_input()
